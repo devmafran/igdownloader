@@ -1,0 +1,24 @@
+$client_id = '549784487358718';
+$client_secret = '89500ceef7f5368469beebdee30b66cb';
+$redirect_uri= "http://devmafranigdownloader.herokuapp.com/callback.php";
+$authorization_code = $_GET['code'];
+$url = '[https://api.instagram.com/oauth/access_token'](https://api.instagram.com/oauth/access_token');
+
+$data = array(
+    'client_id' => $client_id,
+    'client_secret' => $client_secret,
+    'redirect_uri' => $redirect_uri,
+     'code' => $authorization_code
+ );
+
+$options = array(
+    'http' => array(
+        'header'  => "Content-type: application/json\r\n",
+        'method'  => 'POST',
+        'content' => json_encode($data)
+    )
+);
+$context  = stream_context_create($options);
+$result = file_get_contents($url, false, $context);
+
+var_dump($result);
